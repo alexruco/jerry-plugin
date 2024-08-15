@@ -33,8 +33,12 @@ jQuery(document).ready(function($) {
                 nm_email: email
             },
             success: function(response) {
-                alert('Thank you for subscribing!');
-                modal.css('display', 'none');
+                if (response.success) {
+                    $('.nm-modal-content').hide();
+                    $('#nm-thank-you').show();  // Show thank you message
+                } else {
+                    alert('There was an error: ' + response.data);
+                }
             },
             error: function() {
                 alert('There was an error. Please try again.');

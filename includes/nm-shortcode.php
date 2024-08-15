@@ -5,6 +5,7 @@ function nm_newsletter_modal_shortcode() {
     $modal_image = esc_url(get_option('nm_modal_image'));
     $continue_text = esc_html(get_option('nm_continue_text', 'Continue reading'));
     $continue_url = esc_url(get_option('nm_continue_url', '#'));
+    $thank_you_message = esc_html(get_option('nm_thank_you_message', 'Thank you for subscribing!'));
     
     ob_start(); ?>
 
@@ -26,6 +27,9 @@ function nm_newsletter_modal_shortcode() {
                 <a href="<?php echo $continue_url; ?>" id="nm-continue-reading"><?php echo $continue_text; ?></a>
                 <a href="<?php echo esc_url(get_option('nm_anchor_url', '#')); ?>" id="nm-sign-in"><?php echo esc_html(get_option('nm_anchor_text', 'Sign in')); ?></a>
             </div>
+        </div>
+        <div id="nm-thank-you" class="nm-thank-you" style="display:none;">
+            <h2><?php echo $thank_you_message; ?></h2>
         </div>
     </div>
 

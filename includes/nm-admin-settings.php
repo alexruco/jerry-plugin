@@ -1,25 +1,5 @@
 <?php
 
-// Add admin menu item for settings
-function nm_add_admin_menu() {
-    add_options_page('Newsletter Modal Settings', 'Newsletter Modal', 'manage_options', 'newsletter-modal', 'nm_settings_page');
-}
-add_action('admin_menu', 'nm_add_admin_menu');
-
-// Register settings
-function nm_register_settings() {
-    register_setting('nm-settings-group', 'nm_h2_text');
-    register_setting('nm-settings-group', 'nm_p_text');
-    register_setting('nm-settings-group', 'nm_input_placeholder');
-    register_setting('nm-settings-group', 'nm_button_text');
-    register_setting('nm-settings-group', 'nm_anchor_text');
-    register_setting('nm-settings-group', 'nm_anchor_url');
-    register_setting('nm-settings-group', 'nm_continue_text');
-    register_setting('nm-settings-group', 'nm_continue_url');
-    register_setting('nm-settings-group', 'nm_modal_image'); // New setting for image
-}
-add_action('admin_init', 'nm_register_settings');
-
 // Settings page content
 function nm_settings_page() {
     ?>
@@ -78,6 +58,11 @@ function nm_settings_page() {
                         <button type="button" class="button" id="nm_modal_image_upload">Select Image</button>
                         <button type="button" class="button" id="nm_modal_image_remove">Remove Image</button>
                     </td>
+                </tr>
+
+                <tr valign="top">
+                    <th scope="row">Thank You Message</th>
+                    <td><textarea name="nm_thank_you_message"><?php echo esc_textarea(get_option('nm_thank_you_message', 'Thank you for subscribing!')); ?></textarea></td>
                 </tr>
             </table>
             <?php submit_button(); ?>
