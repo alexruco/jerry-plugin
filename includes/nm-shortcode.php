@@ -6,7 +6,9 @@ function nm_newsletter_modal_shortcode() {
     $continue_text = esc_html(get_option('nm_continue_text', 'Continue reading'));
     $continue_url = esc_url(get_option('nm_continue_url', '#'));
     $thank_you_message = esc_html(get_option('nm_thank_you_message', 'Thank you for subscribing!'));
-    
+    $button_color = esc_attr(get_option('nm_button_color', '#ff6a3d'));
+    $link_color = esc_attr(get_option('nm_link_color', '#ff6a3d'));
+
     ob_start(); ?>
 
     <div id="nm-modal" class="nm-modal">
@@ -21,11 +23,11 @@ function nm_newsletter_modal_shortcode() {
             </div>
             <form class="nm-modal-body">
                 <input type="email" placeholder="<?php echo esc_attr(get_option('nm_input_placeholder', 'Type your email...')); ?>" required>
-                <button type="submit"><?php echo esc_html(get_option('nm_button_text', 'Subscribe')); ?></button>
+                <button type="submit" style="background-color: <?php echo $button_color; ?>;"><?php echo esc_html(get_option('nm_button_text', 'Subscribe')); ?></button>
             </form>
             <div class="nm-modal-footer">
-                <a href="<?php echo $continue_url; ?>" id="nm-continue-reading"><?php echo $continue_text; ?></a>
-                <a href="<?php echo esc_url(get_option('nm_anchor_url', '#')); ?>" id="nm-sign-in"><?php echo esc_html(get_option('nm_anchor_text', 'Sign in')); ?></a>
+                <a href="<?php echo $continue_url; ?>" id="nm-continue-reading" style="color: <?php echo $link_color; ?>;"><?php echo $continue_text; ?></a>
+                <a href="<?php echo esc_url(get_option('nm_anchor_url', '#')); ?>" id="nm-sign-in" style="color: <?php echo $link_color; ?>;"><?php echo esc_html(get_option('nm_anchor_text', 'Sign in')); ?></a>
             </div>
         </div>
         <div id="nm-thank-you" class="nm-thank-you" style="display:none;">

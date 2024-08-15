@@ -100,3 +100,19 @@
     color: #333;
     margin: 0;
 }
+
+.nm-modal-body button {
+    width: 100%;
+    padding: 10px;
+    color: white; /* Keep text color white unless overridden */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.nm-modal-footer a {
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 14px;
+}

@@ -67,3 +67,19 @@ function nm_add_admin_menu() {
     );
 }
 add_action('admin_menu', 'nm_add_admin_menu');
+
+
+function nm_enqueue_admin_assets($hook) {
+    // Check the exact value of $hook
+    error_log($hook);  // Log the hook value to the debug.log
+
+    // Replace 'settings_page_jerry-lead-capture' with the actual value of $hook from your error log
+    if ($hook !== 'settings_page_jerry-lead-capture') {
+        return;
+    }
+
+    wp_enqueue_style('wp-color-picker');
+    wp_enqueue_style('nm-admin-styles', NM_PLUGIN_URL . 'assets/css/admin-styles.css'); // Enqueue custom admin styles
+    wp_enqueue_script('nm-admin-scripts', NM_PLUGIN_URL . 'assets/js/admin-script.js', array('wp-color-picker'), false, true);
+}
+add_action('admin_enqueue_scripts', 'nm_enqueue_admin_assets');

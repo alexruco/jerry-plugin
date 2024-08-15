@@ -29,7 +29,7 @@ function nm_subscribers_page() {
 }
 
 // Add subscribers page to the admin menu
-function nm_add_subscribers_page() {
-    add_menu_page('Newsletter Subscribers', 'Newsletter Subscribers', 'manage_options', 'newsletter-subscribers', 'nm_subscribers_page', 'dashicons-email-alt2');
-}
+//function nm_add_subscribers_page() {
+//    add_menu_page('Newsletter Subscribers', 'Newsletter Subscribers', 'manage_options', 'newsletter-subscribers', 'nm_subscribers_page', 'dashicons-email-alt2');
+//}
 #add_action('admin_menu', 'nm_add_subscribers_page');
