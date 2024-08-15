@@ -65,6 +65,18 @@ The plugin carefully enqueues both admin and front-end assets:
 
 Each time a new subscriber is captured, the plugin triggers a `generate_lead` event in the data layer with the `lead_source` parameter set to `"jerry modal"`. This allows seamless integration with Google Tag Manager or other analytics tools.
 
+## Multilingual Support
+
+Jerry Lead Capturing Plugin is fully translatable and supports multiple languages. We welcome contributions from the community to add translations in different languages.
+
+### How to Contribute Translations
+
+1. **Generate or download the `.pot` file** from the `languages` directory.
+2. **Use a translation tool** like Poedit or Loco Translate to create a `.po` and `.mo` file for your language.
+3. **Save the files** in the `languages` directory using the correct language and locale codes (e.g., `jerry-lead-capture-fr_FR.po` for French).
+4. **Submit your translation** via a pull request on GitHub or by contacting the plugin author.
+
+
 ## Changelog
 
 ### Version 1.3

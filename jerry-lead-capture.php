@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Jerry Lead Capture Plugin
- * Description: Displays a modal popup for lead capturing.
+ * Description: Displays a modal popup for newsletter subscription.
  * Version: 1.3
  * Author: Alex Ruco
  */
@@ -20,6 +20,7 @@ include_once NM_PLUGIN_DIR . 'includes/nm-subscribers-page.php';
 include_once NM_PLUGIN_DIR . 'includes/nm-shortcode.php';
 include_once NM_PLUGIN_DIR . 'includes/nm-ajax-handler.php';
 include_once NM_PLUGIN_DIR . 'includes/nm-database.php';
+include_once NM_PLUGIN_DIR . 'includes/nm-multilanguage.php'; // Include multilanguage functions
 
 // Variable to hold the admin page hook suffix
 $nm_admin_page_hook_suffix = '';
