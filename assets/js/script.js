@@ -1,11 +1,39 @@
+//assets/js/scripts.js
+
 jQuery(document).ready(function($) {
     var modal = $('#nm-modal');
     var closeBtn = $('.nm-close');
 
-    // Show the modal after 2 seconds
-    setTimeout(function() {
-        modal.css('display', 'flex');
-    }, 2000);
+    // Function to get a cookie by name
+    function getCookie(name) {
+        var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        if (match) {
+            return match[2];
+        }
+        return null;
+    }
+
+    // Function to set a cookie
+    function setCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    // Check if the session cookie exists
+    if (!getCookie('nm_modal_shown')) {
+        // Show the modal after 2 seconds if the cookie is not set
+        setTimeout(function() {
+            modal.css('display', 'flex');
+        }, 2000);
+
+        // Set the cookie to expire at the end of the session
+        setCookie('nm_modal_shown', 'true');
+    }
 
     // Close the modal when the user clicks the 'x' button
     closeBtn.on('click', function() {
