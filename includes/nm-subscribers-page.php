@@ -32,7 +32,7 @@ function nm_subscribers_page() {
     $subscribers = $wpdb->get_results("SELECT * FROM $table_name");
     ?>
     <div class="wrap">
-        <h1>Newsletter Subscribers</h1>
+        <h1>Leads captured</h1>
         <form method="get">
             <input type="hidden" name="page" value="nm-subscribers" />
             <input type="submit" name="nm_download_csv" class="button-primary" value="Download CSV" />

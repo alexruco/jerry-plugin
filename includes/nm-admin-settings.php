@@ -21,7 +21,7 @@ add_action('admin_init', 'nm_register_settings');
 function nm_settings_page() {
     ?>
     <div class="wrap">
-        <h1>Newsletter Modal Settings</h1>
+        <h1>Lead Capturing Modal Settings</h1>
         <form method="post" action="options.php">
             <?php
             settings_fields('nm-settings-group');
