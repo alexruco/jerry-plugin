@@ -2,19 +2,18 @@
 
 // Register settings
 function nm_register_settings() {
-    // Register each setting here, using the same group name as in settings_fields
     register_setting('nm-settings-group', 'nm_h2_text');
     register_setting('nm-settings-group', 'nm_p_text');
     register_setting('nm-settings-group', 'nm_input_placeholder');
     register_setting('nm-settings-group', 'nm_button_text');
-    register_setting('nm-settings-group', 'nm_anchor_text');
-    register_setting('nm-settings-group', 'nm_anchor_url');
-    register_setting('nm-settings-group', 'nm_continue_text');
-    register_setting('nm-settings-group', 'nm_continue_url');
+    register_setting('nm-settings-group', 'nm_right_link_text');  // Previously "Anchor Text"
+    register_setting('nm-settings-group', 'nm_right_link_url');   // Previously "Anchor URL"
+    register_setting('nm-settings-group', 'nm_left_link_text');   // Previously "Continue Reading Text"
+    register_setting('nm-settings-group', 'nm_left_link_url');    // Previously "Continue Reading URL"
     register_setting('nm-settings-group', 'nm_modal_image');
     register_setting('nm-settings-group', 'nm_thank_you_message');
-    register_setting('nm-settings-group', 'nm_button_color'); // New setting for button color
-    register_setting('nm-settings-group', 'nm_link_color');   // New setting for link color
+    register_setting('nm-settings-group', 'nm_button_color');
+    register_setting('nm-settings-group', 'nm_link_color');
 }
 add_action('admin_init', 'nm_register_settings');
 
@@ -25,10 +24,7 @@ function nm_settings_page() {
         <h1>Newsletter Modal Settings</h1>
         <form method="post" action="options.php">
             <?php
-            // Generate security fields for the registered setting "nm-settings-group"
             settings_fields('nm-settings-group');
-
-            // Output setting sections and their fields for the registered group
             do_settings_sections('nm-settings-group');
             ?>
             <table class="form-table">
@@ -49,20 +45,20 @@ function nm_settings_page() {
                     <td><input type="text" name="nm_button_text" value="<?php echo esc_attr(get_option('nm_button_text', 'Subscribe')); ?>" /></td>
                 </tr>
                 <tr valign="top">
-                    <th scope="row">Anchor Text</th>
-                    <td><input type="text" name="nm_anchor_text" value="<?php echo esc_attr(get_option('nm_anchor_text', 'Sign in')); ?>" /></td>
+                    <th scope="row">Right Link Text</th>
+                    <td><input type="text" name="nm_right_link_text" value="<?php echo esc_attr(get_option('nm_right_link_text', 'Sign in')); ?>" /></td>
                 </tr>
                 <tr valign="top">
-                    <th scope="row">Anchor URL</th>
-                    <td><input type="text" name="nm_anchor_url" value="<?php echo esc_url(get_option('nm_anchor_url', '#')); ?>" /></td>
+                    <th scope="row">Right Link URL</th>
+                    <td><input type="text" name="nm_right_link_url" value="<?php echo esc_url(get_option('nm_right_link_url', '#')); ?>" /></td>
                 </tr>
                 <tr valign="top">
-                    <th scope="row">Continue Reading Button Text</th>
-                    <td><input type="text" name="nm_continue_text" value="<?php echo esc_attr(get_option('nm_continue_text', 'Continue reading')); ?>" /></td>
+                    <th scope="row">Left Link Text</th>
+                    <td><input type="text" name="nm_left_link_text" value="<?php echo esc_attr(get_option('nm_left_link_text', 'Continue reading')); ?>" /></td>
                 </tr>
                 <tr valign="top">
-                    <th scope="row">Continue Reading Button URL</th>
-                    <td><input type="text" name="nm_continue_url" value="<?php echo esc_url(get_option('nm_continue_url', '#')); ?>" /></td>
+                    <th scope="row">Left Link URL</th>
+                    <td><input type="text" name="nm_left_link_url" value="<?php echo esc_url(get_option('nm_left_link_url', '#')); ?>" /></td>
                 </tr>
                 <tr valign="top">
                     <th scope="row">Modal Image</th>
@@ -71,7 +67,7 @@ function nm_settings_page() {
                         <img id="nm_modal_image_preview" src="<?php echo esc_url(get_option('nm_modal_image')); ?>" style="max-width: 150px; max-height: 150px;" />
                         <br>
                         <button type="button" class="button" id="nm_modal_image_upload">Select Image</button>
-                        <button type="button" class="button" id="nm_modal_image_remove">Remove Image</button>
+                        <button type="button" class="button-secondary" id="nm_modal_image_remove">Remove Image</button>
                     </td>
                 </tr>
                 <tr valign="top">

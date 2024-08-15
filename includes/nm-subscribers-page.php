@@ -1,6 +1,31 @@
 <?php
 
-// Function to display the subscribers page
+// Function to export subscribers as CSV
+function nm_export_subscribers_csv() {
+    if (isset($_GET['nm_download_csv'])) {
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'nm_subscribers';
+
+        $subscribers = $wpdb->get_results("SELECT * FROM $table_name");
+
+        // Set CSV headers
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="subscribers.csv"');
+
+        $output = fopen('php://output', 'w');
+        fputcsv($output, array('ID', 'Email'));
+
+        foreach ($subscribers as $subscriber) {
+            fputcsv($output, array($subscriber->id, $subscriber->email));
+        }
+
+        fclose($output);
+        exit;
+    }
+}
+add_action('admin_init', 'nm_export_subscribers_csv');
+
+// Admin page to view subscribers
 function nm_subscribers_page() {
     global $wpdb;
     $table_name = $wpdb->prefix . 'nm_subscribers';
@@ -8,6 +33,10 @@ function nm_subscribers_page() {
     ?>
     <div class="wrap">
         <h1>Newsletter Subscribers</h1>
+        <form method="get">
+            <input type="hidden" name="page" value="nm-subscribers" />
+            <input type="submit" name="nm_download_csv" class="button-primary" value="Download CSV" />
+        </form>
         <table class="widefat">
             <thead>
                 <tr>
@@ -27,9 +56,3 @@ function nm_subscribers_page() {
     </div>
     <?php
 }
-
-// Add subscribers page to the admin menu
-//function nm_add_subscribers_page() {
-//    add_menu_page('Newsletter Subscribers', 'Newsletter Subscribers', 'manage_options', 'newsletter-subscribers', 'nm_subscribers_page', 'dashicons-email-alt2');
-//}
-#add_action('admin_menu', 'nm_add_subscribers_page');

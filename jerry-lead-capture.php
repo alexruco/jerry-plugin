@@ -21,22 +21,15 @@ include_once NM_PLUGIN_DIR . 'includes/nm-shortcode.php';
 include_once NM_PLUGIN_DIR . 'includes/nm-ajax-handler.php';
 include_once NM_PLUGIN_DIR . 'includes/nm-database.php';
 
-// Enqueue styles and scripts
-function nm_enqueue_assets() {
-    wp_enqueue_style('nm-styles', NM_PLUGIN_URL . 'assets/css/styles.css');
-    wp_enqueue_script('nm-scripts', NM_PLUGIN_URL . 'assets/js/script.js', array('jquery'), null, true);
-
-    // Localize script to pass AJAX URL to JavaScript
-    wp_localize_script('nm-scripts', 'nm_ajax_obj', array(
-        'ajax_url' => admin_url('admin-ajax.php')
-    ));
-}
-add_action('wp_enqueue_scripts', 'nm_enqueue_assets');
+// Variable to hold the admin page hook suffix
+$nm_admin_page_hook_suffix = '';
 
 // Add admin menu and submenu items
 function nm_add_admin_menu() {
+    global $nm_admin_page_hook_suffix;
+    
     // Main menu entry
-    add_menu_page(
+    $nm_admin_page_hook_suffix = add_menu_page(
         'Jerry Lead Capture Plugin',  // Page title
         'Lead Capture',               // Menu title
         'manage_options',             // Capability
@@ -68,13 +61,11 @@ function nm_add_admin_menu() {
 }
 add_action('admin_menu', 'nm_add_admin_menu');
 
+// Enqueue styles and scripts for the plugin's settings page
+function nm_enqueue_admin_assets($hook_suffix) {
+    global $nm_admin_page_hook_suffix;
 
-function nm_enqueue_admin_assets($hook) {
-    // Check the exact value of $hook
-    error_log($hook);  // Log the hook value to the debug.log
-
-    // Replace 'settings_page_jerry-lead-capture' with the actual value of $hook from your error log
-    if ($hook !== 'settings_page_jerry-lead-capture') {
+    if ($hook_suffix !== $nm_admin_page_hook_suffix) {
         return;
     }
 
@@ -83,3 +74,17 @@ function nm_enqueue_admin_assets($hook) {
     wp_enqueue_script('nm-admin-scripts', NM_PLUGIN_URL . 'assets/js/admin-script.js', array('wp-color-picker'), false, true);
 }
 add_action('admin_enqueue_scripts', 'nm_enqueue_admin_assets');
+
+// Enqueue front-end styles and scripts for the modal
+function nm_enqueue_frontend_assets() {
+    if (!is_admin()) {
+        wp_enqueue_style('nm-styles', NM_PLUGIN_URL . 'assets/css/styles.css');
+        wp_enqueue_script('nm-scripts', NM_PLUGIN_URL . 'assets/js/script.js', array('jquery'), null, true);
+
+        // Localize script to pass AJAX URL to JavaScript
+        wp_localize_script('nm-scripts', 'nm_ajax_obj', array(
+            'ajax_url' => admin_url('admin-ajax.php')
+        ));
+    }
+}
+add_action('wp_enqueue_scripts', 'nm_enqueue_frontend_assets');

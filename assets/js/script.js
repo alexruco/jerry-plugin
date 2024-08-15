@@ -1,4 +1,3 @@
-// script.js
 jQuery(document).ready(function($) {
     var modal = $('#nm-modal');
     var closeBtn = $('.nm-close');
@@ -36,6 +35,17 @@ jQuery(document).ready(function($) {
                 if (response.success) {
                     $('.nm-modal-content').hide();
                     $('#nm-thank-you').show();  // Show thank you message
+
+                    // Check if the data layer exists, if not, create it
+                    window.dataLayer = window.dataLayer || [];
+
+                    // Push the generate_lead event to the data layer
+                    window.dataLayer.push({
+                        event: 'generate_lead',
+                        lead_source: 'jerry modal'
+                    });
+
+                    console.log('Lead event pushed to the data layer.');
                 } else {
                     alert('There was an error: ' + response.data);
                 }
