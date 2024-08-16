@@ -34,8 +34,8 @@
     color: #777;
 }
 
-.nm-profile-pic {
-    max-width: 50%; /* Ensure the image is responsive */
+#nm-top-pic{
+    max-width: 30%!important; /* Ensure the image is responsive */
     height: auto;
     border-radius: 10px;
     margin-bottom: 10px;
