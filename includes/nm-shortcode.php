@@ -30,10 +30,33 @@ function nm_newsletter_modal_shortcode() {
                 <input type="email" placeholder="<?php echo esc_attr__(get_option('nm_input_placeholder'), 'jerry-lead-capture'); ?>" required>
                 <button type="submit" style="background-color: <?php echo $button_color; ?>;"><?php echo esc_html__(get_option('nm_button_text'), 'jerry-lead-capture'); ?></button>
             </form>
-            <div class="nm-modal-footer">
-                <a href="<?php echo $left_link_url; ?>" id="nm-continue-reading" style="color: <?php echo $link_color; ?>;"><?php echo $left_link_text; ?></a>
-                <a href="<?php echo $right_link_url; ?>" id="nm-sign-in" style="color: <?php echo $link_color; ?>;"><?php echo $right_link_text; ?></a>
-            </div>
+           <!-- file: modal-footer.php -->
+<div class="nm-modal-footer">
+    <?php if($left_link_url && !empty($left_link_text)){ ?>
+        <a href="<?php echo $left_link_url; ?>" 
+           aria-label="<?php echo $left_link_text; ?>"     
+           id="nm-continue-reading" 
+           style="color: <?php echo $link_color; ?>;">
+            <?php echo $left_link_text; ?>
+        </a>
+    <?php 
+        }else{
+        echo "<span></span>";
+        } ?>
+
+    <?php if($right_link_url && !empty($right_link_text)){ ?>
+        <a href="<?php echo $right_link_url; ?>"  
+           aria-label="<?php echo $right_link_text; ?>" 
+           id="nm-sign-in" 
+           style="color: <?php echo $link_color; ?>;">
+            <?php echo $right_link_text; ?>
+        </a>
+        <?php 
+        }else{
+        echo "<span></span>";
+        } ?>
+</div>
+
         </div>
         <div id="nm-thank-you" class="nm-thank-you" style="display:none;">
             <h2><?php echo $thank_you_message; ?></h2>
